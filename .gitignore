@@ -1,0 +1,6 @@
+﻿node_modules/
+hts-cache/
+hts-log.txt
+.env
+.DS_Store
+Thumbs.db

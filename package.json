@@ -1,0 +1,17 @@
+{
+  "name": "timnova",
+  "version": "1.0.0",
+  "description": "TIM Recarga Integrada ao Gateway Pix Blackcat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "tim",
+    "pix",
+    "blackcat"
+  ],
+  "author": "",
+  "license": "ISC"
+}
